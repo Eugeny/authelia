@@ -55,7 +55,7 @@ func (c *CredentialCacheHMAC) Check(ctx Context, username, password string) (val
 
 	raw, err, _ = c.group.Do(key, c.check(ctx, username, password, sum))
 
-	result := raw.(*FlightResult)
+	result := raw.(*CredentialCacheHMACFlightResult)
 
 	return result.Valid, result.Cached, err
 }
@@ -103,11 +103,11 @@ func (c *CredentialCacheHMAC) check(ctx Context, username, password string, sum 
 		var match, valid bool
 
 		if match, _ = c.valid(ctx, username, sum); match {
-			return &FlightResult{Cached: true, Valid: true}, nil
+			return &CredentialCacheHMACFlightResult{Cached: true, Valid: true}, nil
 		}
 
 		if valid, err = ctx.GetUserProvider().CheckUserPassword(username, password); err != nil {
-			return &FlightResult{Cached: false, Valid: valid}, err
+			return &CredentialCacheHMACFlightResult{Cached: false, Valid: valid}, err
 		}
 
 		if valid {
@@ -115,10 +115,10 @@ func (c *CredentialCacheHMAC) check(ctx Context, username, password string, sum 
 				ctx.GetLogger().WithError(err).Errorf("Error occurred saving basic authorization credentials to cache for user '%s'", username)
 			}
 
-			return &FlightResult{Cached: false, Valid: valid}, nil
+			return &CredentialCacheHMACFlightResult{Cached: false, Valid: valid}, nil
 		}
 
-		return &FlightResult{Cached: false, Valid: valid}, nil
+		return &CredentialCacheHMACFlightResult{Cached: false, Valid: valid}, nil
 	}
 }
 
@@ -154,7 +154,7 @@ func (c *CredentialCacheHMAC) put(ctx Context, username string, value []byte) (e
 	return nil
 }
 
-type FlightResult struct {
+type CredentialCacheHMACFlightResult struct {
 	Valid  bool
 	Cached bool
 }

@@ -111,6 +111,12 @@ func (p *FileUserProvider) GetDetails(username string) (details *UserDetails, er
 	return d.ToUserDetails(), nil
 }
 
+// GetDetailsCached is used to get a user's information from the cache if available. The file provider has no cache so
+// this is identical to GetDetails.
+func (p *FileUserProvider) GetDetailsCached(username string) (details *UserDetails, err error) {
+	return p.GetDetails(username)
+}
+
 func (p *FileUserProvider) GetDetailsExtended(username string) (details *UserDetailsExtended, err error) {
 	var d FileUserDatabaseUserDetails
 
@@ -123,6 +129,12 @@ func (p *FileUserProvider) GetDetailsExtended(username string) (details *UserDet
 	}
 
 	return d.ToExtendedUserDetails(), nil
+}
+
+// GetDetailsExtendedCached is used to get a user's extended information from the cache if available. The file provider
+// has no cache so this is identical to GetDetailsExtended.
+func (p *FileUserProvider) GetDetailsExtendedCached(username string) (details *UserDetailsExtended, err error) {
+	return p.GetDetailsExtended(username)
 }
 
 // UpdatePassword update the password of the given user.

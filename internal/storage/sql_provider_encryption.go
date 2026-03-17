@@ -721,6 +721,10 @@ func (p *SQLProvider) setCrypographyKey(ctx context.Context, conn SQLXConnection
 	return key, nil
 }
 
+func (p *SQLProvider) LoadHMACKey(ctx context.Context, name string, size int) (key []byte, err error) {
+	return p.getHMACKey(ctx, name, size)
+}
+
 func (p *SQLProvider) getHMACKey(ctx context.Context, name string, size int) (key []byte, err error) {
 	if key, err = p.getEncryptionValue(ctx, fmt.Sprintf(fmtNameKeyHMAC, name)); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {

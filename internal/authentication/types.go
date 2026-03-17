@@ -41,6 +41,17 @@ func (d *UserDetails) Addresses() (addresses []mail.Address) {
 	return addresses
 }
 
+func (d *UserDetails) Address() mail.Address {
+	if len(d.Emails) == 0 {
+		return mail.Address{}
+	}
+
+	return mail.Address{
+		Name:    d.DisplayName,
+		Address: d.Emails[0],
+	}
+}
+
 func (d *UserDetails) GetUsername() (username string) {
 	return d.Username
 }

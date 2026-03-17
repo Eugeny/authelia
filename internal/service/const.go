@@ -5,11 +5,13 @@ const (
 )
 
 const (
-	logFieldService = "service"
-	logFieldFile    = "file"
-	logFieldOP      = "op"
+	logFieldService   = "service"
+	logFieldFile      = "file"
+	logFieldOP        = "op"
+	logFieldFrequency = "frequency"
 
-	serviceTypeServer  = "server"
-	serviceTypeWatcher = "watcher"
-	serviceTypeSignal  = "signal"
+	serviceTypeServer    = "server"
+	serviceTypeWatcher   = "watcher"
+	serviceTypeSignal    = "signal"
+	serviceTypeCollector = "collector"
 )
