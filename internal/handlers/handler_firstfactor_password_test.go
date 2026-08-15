@@ -1222,7 +1222,9 @@ func (s *FirstFactorReauthenticateSuite) SetupTest() {
 
 	s.Require().NoError(err)
 
-	session.SetOneFactorPasskey(s.mock.Ctx.GetClock().Now(), testValue, false, false, false, false)
+	session.Username = testValue
+
+	session.SetOneFactorPasskey(s.mock.Ctx.GetClock().Now(), false, false, false, false)
 
 	s.Require().NoError(s.mock.Ctx.SaveSession(&session))
 }
@@ -1490,7 +1492,9 @@ func (s *FirstFactorReauthenticateRedirectionSuite) SetupTest() {
 
 	s.Require().NoError(err)
 
-	session.SetOneFactorPasskey(s.mock.Ctx.GetClock().Now(), testValue, false, false, false, false)
+	session.Username = testValue
+
+	session.SetOneFactorPasskey(s.mock.Ctx.GetClock().Now(), false, false, false, false)
 
 	s.Require().NoError(s.mock.Ctx.SaveSession(&session))
 
